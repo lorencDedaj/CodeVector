@@ -17,7 +17,7 @@ app.get('/',
   res.send('Welcome to AskMyRepo 🧠');
 });
 
-app.post('/',
+app.post('/repo',
   cloneRepoController,
   (req, res) => {
   res.send('this is post!');
