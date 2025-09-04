@@ -6,7 +6,7 @@ The repo includes an `index.html` file (so it can render a web page), two GitHub
 
 ```
 *** Added by Lorenc:
-This is a basic backend file structure. NOTE it is not final, this is just a means to give us an overview and an idea of how the backend might look like.
+This is a basic backend file structure. NOTE it is not final, this is just a means to give us an overview and an idea of how the backend might look like..
 
 AskMyRepo/
 ├── package.json
