@@ -15,6 +15,7 @@ async function cloneRepoController(req, res) {
   try {
     const repoName = url.split("/").pop().replace(".git", "");
     const localPath = path.join(__dirname, "..", "repos", repoName);
+    res.locals.localpath = localPath;
 
     if (!fs.existsSync(localPath)) {
       console.log(`Cloning ${url} into ${localPath} ...`);
@@ -24,11 +25,13 @@ async function cloneRepoController(req, res) {
       console.log("Repo already exists, skipping clone.");
     }
 
-    res.json({ message: "Repo cloned successfully", path: localPath });
+    console.log({ message: "Repo cloned successfully", path: localPath });
+    next();
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to clone repo" });
   }
+
 }
 
 module.exports = { cloneRepoController };
