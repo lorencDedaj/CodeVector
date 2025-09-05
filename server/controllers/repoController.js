@@ -15,6 +15,7 @@ async function cloneRepoController(req, res, next) {
   try {
     const repoName = url.split("/").pop().replace(".git", "");
     const localPath = path.join(__dirname, "..", "repos", repoName);
+    res.locals.repoName = repoName;
     console.log(localPath);
     if (!fs.existsSync(localPath)) {
       console.log(`Cloning ${url} into ${localPath} ...`);

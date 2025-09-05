@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require("cors");
 const dotenv = require('dotenv');
 const { cloneRepoController } = require("./controllers/repoController");
+const { processFiles } = require("./controllers/fileController");
 
 
 dotenv.config();
@@ -19,6 +20,7 @@ app.get('/',
 
 app.post('/repo',
   cloneRepoController,
+  processFiles,
   (req, res) => {
   res.send('this is post!');
 });
