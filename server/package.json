@@ -1,23 +1,29 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server/index.js"
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@pinecone-database/pinecone": "^6.1.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
+    "extract-zip": "^2.0.1",
+    "fast-glob": "^3.3.3",
+    "ignore": "^7.0.5",
     "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
     "mysql2": "^3.14.4",
     "openai": "^5.19.1",
+    "p-limit": "^7.1.1",
     "pinecone-client": "^2.0.0"
   },
   "devDependencies": {
