@@ -1,0 +1,31 @@
+# Node modules
+node_modules/
+
+#repos
+repos/
+# Logs
+logs/
+*.log
+
+# Environment files
+.env
+.env.local
+
+# Build output
+dist/
+build/
+out/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-workspace
