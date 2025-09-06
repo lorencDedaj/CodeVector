@@ -18,7 +18,7 @@ app.post('/repo',
   cloneRepoController,
   processFiles,
   (req, res) => {
-  res.send('this is post!');
+  res.status(200).send('repo created!');
 });
 
 app.post('/ask',
@@ -26,7 +26,7 @@ app.post('/ask',
   askPinecone,
   askQuestion,
   (req, res) => {
-  res.send('question answered! please see console.log');
+  res.json({ result: res.locals.result });
 });
 
 const localRepoRoutes = require('./routes/localRepoRoutes');

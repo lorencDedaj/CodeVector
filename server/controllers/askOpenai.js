@@ -36,7 +36,8 @@ const askQuestion = async (req, res, next) =>{
     const text = completion.choices[0].message.content;
     console.log(text);
     // res.locals.result = text;
-    // console.log(text);
+    console.log(text);
+    res.locals.result = text;
     return next();
 }
 
