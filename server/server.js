@@ -1,6 +1,8 @@
 const { cloneRepoController } = require("./controllers/repoController");
 const { processFiles } = require("./controllers/fileController");
-
+const {askEmbedding} = require("./controllers/askOpenai");
+const {askQuestion} = require("./controllers/askOpenai");
+const {askPinecone} = require("./controllers/queryPinecone")
 console.log('process.argv:', process.argv);
 
 const express = require('express');
@@ -12,8 +14,25 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.post('/repo',
+  cloneRepoController,
+  processFiles,
+  (req, res) => {
+  res.send('this is post!');
+});
+
+app.post('/ask',
+  askEmbedding,
+  askPinecone,
+  askQuestion,
+  (req, res) => {
+  res.send('question answered! please see console.log');
+});
+
 const localRepoRoutes = require('./routes/localRepoRoutes');
 app.use('/api/repo', localRepoRoutes);
+
+
 
 app.get('/', (req, res) => {
   res.send('Welcome to AskMyRepo 🧠');
@@ -30,19 +49,7 @@ app.use((err, _req, res, _next) => {
     err?.message || err?.response?.data || 'Internal Server Error';
   res.status(status).json({ error: message });
 });
-app.post('/repo',
-  cloneRepoController,
-  processFiles,
-  (req, res) => {
-  res.send('this is post!');
-});
 
-app.post('/ask',
-  // queryPinecone,
-  // askOpenai,
-  (req, res) => {
-  res.send('this is post!');
-});
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
