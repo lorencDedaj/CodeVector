@@ -1,3 +1,8 @@
+const { cloneRepoController } = require("./controllers/repoController");
+const { processFiles } = require("./controllers/fileController");
+const {askEmbedding} = require("./controllers/askOpenai");
+const {askQuestion} = require("./controllers/askOpenai");
+const {askPinecone} = require("./controllers/queryPinecone")
 console.log('process.argv:', process.argv);
 
 const express = require('express');
@@ -9,8 +14,25 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.post('/repo',
+  cloneRepoController,
+  processFiles,
+  (req, res) => {
+  res.status(200).send('repo created!');
+});
+
+app.post('/ask',
+  askEmbedding,
+  askPinecone,
+  askQuestion,
+  (req, res) => {
+  res.json({ result: res.locals.result });
+});
+
 const localRepoRoutes = require('./routes/localRepoRoutes');
 app.use('/api/repo', localRepoRoutes);
+
+
 
 app.get('/', (req, res) => {
   res.send('Welcome to AskMyRepo 🧠');
