@@ -24,6 +24,13 @@ app.post('/repo',
   (req, res) => {
   res.send('this is post!');
 });
+
+app.post('/ask',
+  queryPinecone,
+  askOpenai,
+  (req, res) => {
+  res.send('this is post!');
+});
 app.listen(PORT, () => {
   console.log(`Server is runiing on http://localhost:${PORT}`);
 });
