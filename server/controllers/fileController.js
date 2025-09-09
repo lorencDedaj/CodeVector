@@ -40,12 +40,6 @@ const processFiles = async (req, res, next) => {
             console.log("call openai get embedding:",embeddingResponse);
             const vector = embeddingResponse.data[0].embedding;
 
-            // Keep local record of vectors
-            vectors.push({
-                filePath: file,
-                embedding: vector,
-            });
-
             // Prepare embeddings for Pinecone
             embeddings.push({
                 id: file, // unique identifier
@@ -53,6 +47,7 @@ const processFiles = async (req, res, next) => {
                 metadata: {
                     filePath: file,
                     length: content.length,
+                    text: content,
                 },
             });
 
@@ -91,7 +86,7 @@ const processFiles = async (req, res, next) => {
 
         // Get index handle
         const index = pinecone.index(indexName);
-
+        await index.deleteAll(); 
         // Upsert all embeddings at once
         if (embeddings.length > 0) {
             await index.upsert(embeddings);

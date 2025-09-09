@@ -1,3 +1,8 @@
+const { cloneRepoController } = require("./controllers/repoController");
+const { processFiles } = require("./controllers/fileController");
+const {askEmbedding} = require("./controllers/askOpenai");
+const {askQuestion} = require("./controllers/askOpenai");
+const {askPinecone} = require("./controllers/queryPinecone")
 console.log('process.argv:', process.argv);
 
 const express = require('express');
@@ -15,6 +20,8 @@ app.use(express.json());
 
 const localRepoRoutes = require('./routes/localRepoRoutes');
 app.use('/api/repo', localRepoRoutes);
+
+
 
 app.get('/', (req, res) => {
   res.send('Welcome to AskMyRepo 🧠');
