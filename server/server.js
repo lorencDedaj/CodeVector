@@ -14,20 +14,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.post('/repo',
-  cloneRepoController,
-  processFiles,
-  (req, res) => {
-  res.status(200).send('repo created!');
-});
-
-app.post('/ask',
-  askEmbedding,
-  askPinecone,
-  askQuestion,
-  (req, res) => {
-  res.json({ result: res.locals.result });
-});
+// NOT THE ROUTE BELOW IS UNUSED
+// const localOpenaiRoutes = require('./routes/localOpenaiRoutes');
+// app.use('/api/openai', localOpenaiRoutes);
 
 const localRepoRoutes = require('./routes/localRepoRoutes');
 app.use('/api/repo', localRepoRoutes);
