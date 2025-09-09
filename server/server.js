@@ -9,6 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// NOT THE ROUTE BELOW IS UNUSED
+// const localOpenaiRoutes = require('./routes/localOpenaiRoutes');
+// app.use('/api/openai', localOpenaiRoutes);
+
 const localRepoRoutes = require('./routes/localRepoRoutes');
 app.use('/api/repo', localRepoRoutes);
 

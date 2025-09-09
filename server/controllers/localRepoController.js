@@ -5,11 +5,9 @@ const multer = require('multer');
 const extract = require('extract-zip');
 const fg = require('fast-glob');
 const crypto = require('crypto');
-const {
-  embedBatch,
-  answerWithContext,
-} = require('../services/embeddingService');
+const { embedBatch } = require('../services/embeddingService');
 const { upsertVectors, queryVectors } = require('../services/pineconeService');
+const { answerWithContext } = require('../services/openaiServices');
 
 const upload = multer({ dest: os.tmpdir() }).single('repoZip');
 
