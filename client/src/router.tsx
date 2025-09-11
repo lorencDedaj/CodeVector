@@ -5,4 +5,5 @@ import Chat from './pages/Chat';
 export const router = createBrowserRouter([
   { path: '/', element: <Upload /> },
   { path: '/chat/:projectId', element: <Chat /> },
+  { path: '/chat/repo/:repoName', element: <Chat /> },
 ]);
