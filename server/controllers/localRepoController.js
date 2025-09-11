@@ -8,6 +8,7 @@ const crypto = require('crypto');
 const { embedBatch } = require('../services/embeddingService');
 const { upsertVectors, queryVectors } = require('../services/pineconeService');
 const { answerWithContext } = require('../services/openaiServices');
+const { logInteraction } = require('../services/supabaseService')
 
 const upload = multer({ dest: os.tmpdir() }).single('repoZip');
 
@@ -135,12 +136,16 @@ exports.queryRepo = async (req, res, next) => {
         const header = `File: ${meta.path} (chunk ${
           meta.idx
         }) [score ${m.score?.toFixed(3)}]`;
-        return `${header}\n${meta.text || ''}`;
+        return `${header}\n${meta.text || ""}`;
       })
-      .join('\n\n---\n\n');
+      .join("\n\n---\n\n");
 
     // 4) Ask the LLM using the retrieved context
     const answer = await answerWithContext(question, context);
+    console.log(answer);
+
+    // log to Supabase
+    await logInteraction({ jobId, question, answer });
 
     // 5) Return answer + sources
     const sources = matches.map((m) => ({
