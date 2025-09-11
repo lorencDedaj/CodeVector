@@ -2,15 +2,22 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SingleFileUploader from "../components/common/SingleFileUploader";
 
-const BASE = import.meta.env.VITE_APP_URL ?? '';
+const BASE = import.meta.env.VITE_APP_URL ?? 'http://localhost:3001';
+
+
+function getRepoName(url: string) {
+  const last = url.replace(/\/+$/, '').split('/').pop() || '';
+  return last.replace(/\.git$/i, '');
+}
 
 async function cloneRepo(url: string) {
-    const res = await fetch(`${BASE}/repo`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify({ url }),
-    });
-    if (!res.ok) throw new Error(await res.text());
+  const res = await fetch(`${BASE}/repo`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ url }),
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.text();
 }
 
 export default function Upload() {
@@ -40,20 +47,20 @@ export default function Upload() {
 //     }
 //   }
 
-  const onClone = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true); setError(null); setSuccess(null);
-    try {
-      const msg = await cloneRepo(repoUrl);
-      setSuccess(msg);            // "repo created!"
-      // If you add an ingest step + an id later, you can navigate:
-      // nav(`/chat/${jobId}`);
-    } catch (e:any) {
-      setError(e.message || 'Clone failed');
-    } finally {
-      setLoading(false);
-    }
-  };
+const onClone = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true); setError(null); setSuccess(null);
+  try {
+    const msg = await cloneRepo(repoUrl);
+    setSuccess(msg);
+    const repoName = getRepoName(repoUrl);
+    nav(`/chat/repo/${encodeURIComponent(repoName)}`);
+  } catch (e:any) {
+    setError(e.message || 'Clone failed');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div style={{display:'grid', gap:16, maxWidth:560, margin:'0 auto', padding:16}}>
