@@ -4,6 +4,7 @@
   "description": "A sample package.json",
   "dependencies": {
     "@primer/css": "17.0.1",
+    "@supabase/supabase-js": "^2.57.4",
     "express": "^5.1.0"
   },
   "license": "MIT",
