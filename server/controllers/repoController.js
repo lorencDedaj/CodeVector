@@ -7,11 +7,11 @@ const git = simpleGit();
 
 async function cloneRepoController(req, res, next) {
   const { url } = req.body;
-
+  console.log(url)
   if (!url) {
     return res.status(400).json({ error: "Repo URL is required" });
   }
-
+ 
   try {
     const repoName = url.split("/").pop().replace(".git", "");
     const localPath = path.join(__dirname, "..", "repos", repoName);

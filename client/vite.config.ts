@@ -14,7 +14,17 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           secure: false,
         },
+        '/repo': {
+          target: env.VITE_API_URL || 'http://localhost:3001', 
+          changeOrigin: true,
+          secure: false,
+        },
+        '/ask': {
+          target: env.VITE_API_URL || 'http://localhost:3001', 
+          changeOrigin: true,
+          secure: false,
       },
     },
-  };
+  },
+}
 });
