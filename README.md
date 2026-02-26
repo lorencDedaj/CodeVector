@@ -23,7 +23,7 @@ You can either upload a local `.zip` repo or import a GitHub repo URL, then chat
 ## Repo Structure
 
 ```text
-askMyRepo/
+CodeVector/
 ├── client/                # React + Vite frontend
 ├── server/                # Express API + RAG pipeline
 ├── README.md
